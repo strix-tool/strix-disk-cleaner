@@ -16,7 +16,7 @@ cat > "$ROOT/DEBIAN/control" <<EOF
 Package: $PKG
 Version: $VERSION
 Architecture: all
-Maintainer: Strix Tools <noreply@users.noreply.github.com>
+Maintainer: Strix Advanced Tools <noreply@users.noreply.github.com>
 Depends: python3, util-linux
 Recommends: nvme-cli, hdparm, smartmontools
 Section: admin
