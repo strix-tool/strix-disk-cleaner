@@ -29,19 +29,20 @@ jobs:
           pip install bandit
           bandit -q -r strixwipe.py strix_disk_cleaner_core.py || true
 
-      - name: Loopback erase integration test (safe — no real disk)
+      - name: Loopback backing-file guard (shield must refuse a loop backed by a mounted disk)
         run: |
+          # On a CI runner every writable path lives on a mounted (in-use) disk, so the
+          # loop-backing-file guard MUST refuse this erase. This positively proves a write
+          # to a loop device cannot reach a protected disk through its backing file.
+          # (The actual overwrite/zeroing logic is covered by tests/test_safety.py.)
           truncate -s 64M /tmp/t.img
           LOOP=$(sudo losetup -f --show /tmp/t.img)
-          echo "Testing on $LOOP"
-          sudo dd if=/dev/urandom of="$LOOP" bs=1M count=1 conv=notrunc status=none
-          printf '%s\nERASE\n' "$LOOP" | sudo python strixwipe.py erase "$LOOP" --method zero --yes-really-erase
-          sudo python - "$LOOP" <<'PY'
-          import sys
-          data = open(sys.argv[1], "rb").read(1024*1024)
-          assert data == b"\x00" * len(data), "device was not zeroed!"
-          print("verified: first 1 MiB is zeroed")
-          PY
+          echo "Testing on $LOOP (backed by /tmp, which lives on the mounted root disk)"
+          if printf '%s\nERASE\n' "$LOOP" | sudo python strixwipe.py erase "$LOOP" --method zero --yes-really-erase; then
+            echo "SHIELD FAILED: erase was allowed on a loop backed by a mounted disk"
+            sudo losetup -d "$LOOP"; exit 1
+          fi
+          echo "confirmed: the loop-backing-file guard refused the erase"
           sudo losetup -d "$LOOP"
 
       - name: Verify the shield refuses the mounted root disk
