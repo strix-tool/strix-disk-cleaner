@@ -203,5 +203,11 @@
     "Automatic eject failed ({0}); use the tray \"Safely Remove Hardware\" icon.":  "La expulsión automática falló ({0}); use el icono \"Quitar hardware de forma segura\" de la bandeja del sistema.",
     "The disk is essentially blank - only partition structures were found (no recoverable user data).":  "El disco está prácticamente en blanco; solo se encontraron estructuras de partición (sin datos de usuario recuperables).",
     "Language:":  "Idioma:",
-    "Strix Disk Cleaner is already running.":  "Strix Disk Cleaner ya se está ejecutando."
+    "Strix Disk Cleaner is already running.":  "Strix Disk Cleaner ya se está ejecutando.",
+  "PROTECTION SHIELD: disk protection could not be verified - the disk list is hidden for safety. Reopen the app or check the Windows Storage service.": "ESCUDO DE PROTECCIÓN: no se pudo verificar la protección de discos - la lista de discos se oculta por seguridad. Vuelva a abrir la aplicación o revise el servicio de almacenamiento de Windows.",
+  "PROTECTION SHIELD: Disk {0} ({1}) hidden - {2}.": "ESCUDO DE PROTECCIÓN: disco {0} ({1}) oculto - {2}.",
+  "Disk list refreshed. {0} wipeable disk(s) found (the system disk is hidden for safety).": "Lista de discos actualizada. {0} disco(s) borrable(s) encontrado(s) (el disco del sistema se oculta por seguridad).",
+  "Panel display error: {0}": "Error de visualización del panel: {0}",
+  "Starting...": "Iniciando...",
+  "Not queried": "No consultado"
 }

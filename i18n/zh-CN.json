@@ -203,5 +203,11 @@
     "Automatic eject failed ({0}); use the tray \"Safely Remove Hardware\" icon.":  "自动弹出失败 ({0})；请使用任务栏的“安全删除硬件”图标。",
     "The disk is essentially blank - only partition structures were found (no recoverable user data).":  "磁盘基本为空白 - 仅发现分区结构（无可恢复的用户数据）。",
     "Language:":  "语言：",
-    "Strix Disk Cleaner is already running.":  "Strix Disk Cleaner 已在运行。"
+    "Strix Disk Cleaner is already running.":  "Strix Disk Cleaner 已在运行。",
+  "PROTECTION SHIELD: disk protection could not be verified - the disk list is hidden for safety. Reopen the app or check the Windows Storage service.": "保护盾：无法验证磁盘保护 - 为安全起见已隐藏磁盘列表。请重新打开应用或检查 Windows 存储服务。",
+  "PROTECTION SHIELD: Disk {0} ({1}) hidden - {2}.": "保护盾：磁盘 {0} ({1}) 已隐藏 - {2}。",
+  "Disk list refreshed. {0} wipeable disk(s) found (the system disk is hidden for safety).": "磁盘列表已刷新。找到 {0} 个可擦除磁盘（为安全起见已隐藏系统磁盘）。",
+  "Panel display error: {0}": "面板显示错误：{0}",
+  "Starting...": "正在启动...",
+  "Not queried": "未查询"
 }

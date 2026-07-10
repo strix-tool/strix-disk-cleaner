@@ -203,5 +203,11 @@
     "Automatic eject failed ({0}); use the tray \"Safely Remove Hardware\" icon.":  "Автоматичне відключення не вдалося ({0}); скористайтеся значком \"Безпечне видалення пристрою\" в системному лотку.",
     "The disk is essentially blank - only partition structures were found (no recoverable user data).":  "Диск фактично порожній - знайдено лише структури розділів (немає відновлюваних даних користувача).",
     "Language:":  "Мова:",
-    "Strix Disk Cleaner is already running.":  "Strix Disk Cleaner вже запущено."
+    "Strix Disk Cleaner is already running.":  "Strix Disk Cleaner вже запущено.",
+  "PROTECTION SHIELD: disk protection could not be verified - the disk list is hidden for safety. Reopen the app or check the Windows Storage service.": "ЗАХИСНИЙ ЩИТ: не вдалося перевірити захист дисків - список дисків приховано задля безпеки. Перезапустіть застосунок або перевірте службу сховища Windows.",
+  "PROTECTION SHIELD: Disk {0} ({1}) hidden - {2}.": "ЗАХИСНИЙ ЩИТ: диск {0} ({1}) приховано - {2}.",
+  "Disk list refreshed. {0} wipeable disk(s) found (the system disk is hidden for safety).": "Список дисків оновлено. Знайдено {0} диск(ів) для стирання (системний диск приховано задля безпеки).",
+  "Panel display error: {0}": "Помилка відображення панелі: {0}",
+  "Starting...": "Запуск...",
+  "Not queried": "Не запитано"
 }

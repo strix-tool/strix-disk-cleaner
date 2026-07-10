@@ -203,5 +203,11 @@
     "Automatic eject failed ({0}); use the tray \"Safely Remove Hardware\" icon.":  "Automatisches Auswerfen fehlgeschlagen ({0}); verwenden Sie das Infobereich-Symbol \"Hardware sicher entfernen\".",
     "The disk is essentially blank - only partition structures were found (no recoverable user data).":  "Der Datenträger ist im Wesentlichen leer - es wurden nur Partitionsstrukturen gefunden (keine wiederherstellbaren Benutzerdaten).",
     "Language:":  "Sprache:",
-    "Strix Disk Cleaner is already running.":  "Strix Disk Cleaner wird bereits ausgeführt."
+    "Strix Disk Cleaner is already running.":  "Strix Disk Cleaner wird bereits ausgeführt.",
+  "PROTECTION SHIELD: disk protection could not be verified - the disk list is hidden for safety. Reopen the app or check the Windows Storage service.": "SCHUTZSCHILD: Der Datenträgerschutz konnte nicht überprüft werden - die Datenträgerliste wird zur Sicherheit ausgeblendet. Starten Sie die App neu oder prüfen Sie den Windows-Speicherdienst.",
+  "PROTECTION SHIELD: Disk {0} ({1}) hidden - {2}.": "SCHUTZSCHILD: Datenträger {0} ({1}) ausgeblendet - {2}.",
+  "Disk list refreshed. {0} wipeable disk(s) found (the system disk is hidden for safety).": "Datenträgerliste aktualisiert. {0} löschbare(r) Datenträger gefunden (der Systemdatenträger wird zur Sicherheit ausgeblendet).",
+  "Panel display error: {0}": "Fehler bei der Panel-Anzeige: {0}",
+  "Starting...": "Wird gestartet...",
+  "Not queried": "Nicht abgefragt"
 }

@@ -203,5 +203,11 @@
     "Automatic eject failed ({0}); use the tray \"Safely Remove Hardware\" icon.": "Automatisk utmatning misslyckades ({0}); använd ikonen \"Säker borttagning av maskinvara\" i aktivitetsfältet.",
     "The disk is essentially blank - only partition structures were found (no recoverable user data).": "Disken är i princip tom - endast partitionsstrukturer hittades (inga återställningsbara användardata).",
     "Language:": "Språk:",
-    "Strix Disk Cleaner is already running.": "Strix Disk Cleaner körs redan."
+    "Strix Disk Cleaner is already running.": "Strix Disk Cleaner körs redan.",
+  "PROTECTION SHIELD: disk protection could not be verified - the disk list is hidden for safety. Reopen the app or check the Windows Storage service.": "SKYDDSSKÖLD: diskskyddet kunde inte verifieras - disklistan döljs av säkerhetsskäl. Öppna appen igen eller kontrollera Windows lagringstjänst.",
+  "PROTECTION SHIELD: Disk {0} ({1}) hidden - {2}.": "SKYDDSSKÖLD: disk {0} ({1}) dold - {2}.",
+  "Disk list refreshed. {0} wipeable disk(s) found (the system disk is hidden for safety).": "Disklistan uppdaterad. {0} raderbar(a) disk(ar) hittades (systemdisken döljs av säkerhetsskäl).",
+  "Panel display error: {0}": "Fel vid panelvisning: {0}",
+  "Starting...": "Startar...",
+  "Not queried": "Inte efterfrågad"
 }

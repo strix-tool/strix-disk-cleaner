@@ -203,5 +203,11 @@
     "Automatic eject failed ({0}); use the tray \"Safely Remove Hardware\" icon.": "自動取り外しに失敗しました（{0}）。トレイの「ハードウェアの安全な取り外し」アイコンを使用してください。",
     "The disk is essentially blank - only partition structures were found (no recoverable user data).": "ディスクは実質的に空です - パーティション構造のみが見つかりました（復元可能なユーザーデータはありません）。",
     "Language:": "言語:",
-    "Strix Disk Cleaner is already running.": "Strix Disk Cleaner は既に実行中です。"
+    "Strix Disk Cleaner is already running.": "Strix Disk Cleaner は既に実行中です。",
+  "PROTECTION SHIELD: disk protection could not be verified - the disk list is hidden for safety. Reopen the app or check the Windows Storage service.": "保護シールド: ディスク保護を確認できませんでした - 安全のためディスク一覧を非表示にしています。アプリを再起動するか、Windows のストレージ サービスを確認してください。",
+  "PROTECTION SHIELD: Disk {0} ({1}) hidden - {2}.": "保護シールド: ディスク {0} ({1}) を非表示にしました - {2}。",
+  "Disk list refreshed. {0} wipeable disk(s) found (the system disk is hidden for safety).": "ディスク一覧を更新しました。消去可能なディスクが {0} 台見つかりました（システム ディスクは安全のため非表示です）。",
+  "Panel display error: {0}": "パネル表示エラー: {0}",
+  "Starting...": "開始しています...",
+  "Not queried": "未取得"
 }
