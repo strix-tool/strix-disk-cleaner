@@ -416,8 +416,10 @@ function Expand-Xaml([string]$template) {
     foreach ($k in $script:Theme.Keys)  { $s = $s.Replace('%' + $k + '%', [string]$script:Theme[$k]) }
     foreach ($k in $script:Text.Keys) {
         $v = [string]$script:Text[$k]
-        # Security: text values are always XML-escaped before being embedded into XAML
-        $v = $v.Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;').Replace('"','&quot;')
+        # Security: text values are always XML-escaped before being embedded into XAML.
+        # The apostrophe is escaped too so a translation like "l'application" stays
+        # inert even if a future edit ever wraps a {T:key} in a single-quoted attribute.
+        $v = $v.Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;').Replace('"','&quot;').Replace("'",'&apos;')
         $s = $s.Replace('{T:' + $k + '}', $v)
     }
     return [xml]$s

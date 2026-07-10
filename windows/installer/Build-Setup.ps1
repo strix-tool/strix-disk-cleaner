@@ -48,7 +48,8 @@ Invoke-Sign -Files @($launcher)
 
 # 3) compile the NSIS installer ---------------------------------------------
 Write-Host '== Compiling wizard installer (makensis) ==' -ForegroundColor Cyan
-$makensis = (Get-Command $MakeNSIS -ErrorAction SilentlyContinue)?.Source
+$makensisCmd = Get-Command $MakeNSIS -ErrorAction SilentlyContinue
+$makensis = if ($makensisCmd) { $makensisCmd.Source } else { $null }
 if (-not $makensis) {
     foreach ($p in @("${env:ProgramFiles(x86)}\NSIS\makensis.exe",
                      "${env:ProgramFiles}\NSIS\makensis.exe")) {
