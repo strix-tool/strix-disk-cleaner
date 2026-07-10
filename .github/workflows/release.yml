@@ -1,0 +1,100 @@
+name: Release
+
+on:
+  push:
+    tags: [ 'v*' ]
+
+permissions:
+  contents: write        # create the release
+  id-token: write        # Sigstore OIDC — required for build provenance
+  attestations: write    # write the attestation
+
+jobs:
+  linux:
+    name: Build Linux .deb
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build .deb
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          bash linux/build-deb.sh "$VERSION"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: dist/*.deb
+          if-no-files-found: error
+
+  windows:
+    name: Build Windows installer
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build tooling
+        shell: pwsh
+        run: |
+          # NSIS provides makensis.exe — Build-Setup.ps1 compiles StrixDiskCleaner.nsi with it.
+          # The no-console launcher is compiled by build\Build-Launcher.ps1 using csc.exe from
+          # the .NET Framework, which already ships on windows-latest (no module/package needed).
+          choco install nsis -y --no-progress
+      - name: Build installer
+        shell: pwsh
+        run: |
+          # Real entrypoint: builds the launcher (csc) then compiles the NSIS wizard installer
+          # -> windows\installer\dist\StrixDiskCleaner-Setup-2.3.0.exe
+          windows\installer\Build-Setup.ps1
+      - name: Normalize asset name
+        shell: pwsh
+        run: |
+          # Build-Setup.ps1 produces StrixDiskCleaner-Setup-<ver>.exe; the site expects the
+          # exact name Strix-Disk-Cleaner-Setup.exe.
+          $src = Get-ChildItem -Recurse -Filter '*Setup*.exe' | Select-Object -First 1
+          if (-not $src) { throw 'installer .exe not found' }
+          Copy-Item $src.FullName 'Strix-Disk-Cleaner-Setup.exe' -Force
+      # SignPath signing (free for OSS) — disabled until configured; see SIGNING.md.
+      # - name: Sign with SignPath
+      #   uses: signpath/github-action-submit-signing-request@v1
+      #   with:
+      #     api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+      #     organization-id: '${{ vars.SIGNPATH_ORG_ID }}'
+      #     project-slug: 'strix-disk-cleaner'
+      #     signing-policy-slug: 'release-signing'
+      #     artifact-configuration-slug: 'installer'
+      #     github-artifact-id: '${{ steps.win_art.outputs.artifact-id }}'
+      #     wait-for-completion: true
+      #     output-artifact-directory: '.'
+      - name: Upload Windows artifact
+        id: win_art
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: Strix-Disk-Cleaner-Setup.exe
+          if-no-files-found: error
+
+  release:
+    name: Checksums, provenance & publish
+    needs: [ linux, windows ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: staging
+      - name: Flatten + generate SHA256SUMS (all platforms)
+        run: |
+          mkdir -p dist
+          find staging -type f -exec cp -n {} dist/ \;
+          cd dist && sha256sum * > SHA256SUMS
+          echo "----- SHA256SUMS -----"; cat SHA256SUMS
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: 'dist/*'
+      - name: Publish to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*

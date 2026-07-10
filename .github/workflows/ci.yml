@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Safety tests + loopback erase (Ubuntu)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Syntax check
+        run: python -m py_compile strixwipe.py strix_disk_cleaner_core.py
+
+      - name: Safety-shield unit tests
+        run: python tests/test_safety.py
+
+      - name: Static security scan (bandit)
+        run: |
+          pip install bandit
+          bandit -q -r strixwipe.py strix_disk_cleaner_core.py || true
+
+      - name: Loopback erase integration test (safe — no real disk)
+        run: |
+          truncate -s 64M /tmp/t.img
+          LOOP=$(sudo losetup -f --show /tmp/t.img)
+          echo "Testing on $LOOP"
+          sudo dd if=/dev/urandom of="$LOOP" bs=1M count=1 conv=notrunc status=none
+          printf '%s\nERASE\n' "$LOOP" | sudo python strixwipe.py erase "$LOOP" --method zero --yes-really-erase
+          sudo python - "$LOOP" <<'PY'
+          import sys
+          data = open(sys.argv[1], "rb").read(1024*1024)
+          assert data == b"\x00" * len(data), "device was not zeroed!"
+          print("verified: first 1 MiB is zeroed")
+          PY
+          sudo losetup -d "$LOOP"
+
+      - name: Verify the shield refuses the mounted root disk
+        run: |
+          ROOT_SRC=$(python -c "import strix_disk_cleaner_core as c; print(c.root_source(c.read_mounts()))")
+          echo "root source: $ROOT_SRC"
+          BASE=$(python -c "import strix_disk_cleaner_core as c; print(c.base_disk('$ROOT_SRC'))")
+          ! sudo python strixwipe.py erase "$BASE" --method zero --yes-really-erase </dev/null
+          echo "confirmed: erasing the root disk is refused"
+
+      - name: Build .deb
+        run: bash linux/build-deb.sh 0.0.0-ci
+      - uses: actions/upload-artifact@v4
+        with:
+          name: strix-disk-cleaner-deb
+          path: dist/*.deb

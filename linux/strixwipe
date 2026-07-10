@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# strixwipe launcher (Linux). Runs the CLI with python3.
+set -euo pipefail
+
+# When running as root (the erase path), DO NOT trust user-controlled env: use a
+# fixed interpreter and the installed app dir only. This prevents a permissive
+# sudoers policy (env_keep / weak secure_path / sudo -E) from redirecting
+# execution to attacker-controlled code via $STRIXWIPE_HOME or $PATH.
+if [ "$(id -u)" -eq 0 ]; then
+    PY=/usr/bin/python3
+    [ -x "$PY" ] || PY=/usr/local/bin/python3
+    for d in /opt/strix-disk-cleaner /usr/local/share/strix-disk-cleaner; do
+        if [ -f "$d/strixwipe.py" ] && [ -x "$PY" ]; then
+            exec "$PY" "$d/strixwipe.py" "$@"
+        fi
+    done
+    echo "strixwipe: installed app not found under /opt/strix-disk-cleaner (or python3 missing)." >&2
+    echo "For development, run as a normal user: python3 strixwipe.py list" >&2
+    exit 1
+fi
+
+# Non-root (safe: only 'list' / 'info' work without root). Allow a dev checkout.
+find_app_dir() {
+    if [ -n "${STRIXWIPE_HOME:-}" ] && [ -f "${STRIXWIPE_HOME}/strixwipe.py" ]; then
+        printf '%s\n' "${STRIXWIPE_HOME}"; return 0
+    fi
+    local self here d
+    self="$(readlink -f "$0" 2>/dev/null || printf '%s' "$0")"
+    here="$(dirname "$self")"
+    for d in "$here" "$here/.." "$here/../.."; do
+        if [ -f "$d/strixwipe.py" ]; then (cd "$d" && pwd); return 0; fi
+    done
+    for d in /opt/strix-disk-cleaner "$HOME/.local/share/strix-disk-cleaner"; do
+        if [ -f "$d/strixwipe.py" ]; then printf '%s\n' "$d"; return 0; fi
+    done
+    return 1
+}
+
+PY="$(command -v python3 || true)"
+[ -z "$PY" ] && { echo "strixwipe: python3 not found (sudo apt install python3)" >&2; exit 1; }
+APPDIR="$(find_app_dir)" || { echo "strixwipe: strixwipe.py not found. Set STRIXWIPE_HOME." >&2; exit 1; }
+exec "$PY" "$APPDIR/strixwipe.py" "$@"

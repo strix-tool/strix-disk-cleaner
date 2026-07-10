@@ -1,0 +1,25 @@
+# Build output / installers (never commit)
+build/output/
+dist/
+*.deb
+*.exe
+*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# Installers & analysis artifacts (published via GitHub Releases; never committed)
+*.msi
+/*.spec
+bin/
+obj/
+.sonarqube/
+.scannerwork/
