@@ -9,6 +9,8 @@
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-blue.svg)](#installation)
 [![Safety](https://img.shields.io/badge/safety-shield%20%2B%20tests-success.svg)](SECURITY.md)
 
+![Strix Disk Cleaner - screenshot](docs/screenshot.png)
+
 > ⚠️ **This tool destroys data permanently and cannot be undone.** Read the safety
 > section before use. Always double-check the target device.
 
