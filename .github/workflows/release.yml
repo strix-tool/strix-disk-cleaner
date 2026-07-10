@@ -90,6 +90,12 @@ jobs:
           find staging -type f -exec cp -n {} dist/ \;
           cd dist && sha256sum * > SHA256SUMS
           echo "----- SHA256SUMS -----"; cat SHA256SUMS
+      - name: Generate SBOM (SPDX)
+        uses: anchore/sbom-action@v0
+        with:
+          path: dist
+          format: spdx-json
+          output-file: dist/SBOM.spdx.json
       - name: Attest build provenance
         uses: actions/attest-build-provenance@v2
         with:

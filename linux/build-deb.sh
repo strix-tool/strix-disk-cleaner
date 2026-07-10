@@ -21,7 +21,7 @@ Depends: python3, util-linux
 Recommends: nvme-cli, hdparm, smartmontools
 Section: admin
 Priority: optional
-Homepage: https://github.com/strix-tools/strix-disk-cleaner
+Homepage: https://github.com/strix-tool/strix-disk-cleaner
 Description: Secure whole-disk eraser (CLI) with a strong safety shield
  Irreversibly erases a whole disk on Linux with hardware sanitize (blkdiscard /
  nvme sanitize / hdparm) or multi-pass overwrite. Refuses the system/root disk

@@ -3,7 +3,7 @@
 ## Reporting a vulnerability
 
 Report privately via GitHub Security Advisories (the repo's **Security** tab) or the
-[Strix Advanced Tools](https://github.com/strix-tools) maintainer contacts — not a public issue.
+[Strix Advanced Tools](https://github.com/strix-tool) maintainer contacts — not a public issue.
 
 ## This is a destructive tool
 

@@ -1,8 +1,4 @@
 version: 2
-# Keeps GitHub Actions pinned versions fresh. Because the release workflow's
-# build-provenance attestation is only as trustworthy as the actions that run,
-# Dependabot proposes updates (and, once actions are pinned to commit SHAs,
-# bumps those SHAs) so a stale or compromised action tag can't slip through.
 updates:
   - package-ecosystem: github-actions
     directory: /

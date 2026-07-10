@@ -2,7 +2,7 @@
 
 This document explains how Strix release artifacts are made verifiable today, and
 how to turn on code signing later. It applies to all repositories in the
-`strix-tools` organization.
+`strix-tool` organization.
 
 ## TL;DR — what ships today
 
@@ -24,7 +24,7 @@ Get-FileHash .\Strix-Inspector-Setup.exe -Algorithm SHA256    # Windows
 sha256sum -c SHA256SUMS                                        # Linux
 
 # provenance (needs GitHub CLI 2.49+)
-gh attestation verify Strix-Inspector-Setup.exe --repo strix-tools/strix-inspector
+gh attestation verify Strix-Inspector-Setup.exe --repo strix-tool/strix-inspector
 ```
 
 ## Why unsigned, for now

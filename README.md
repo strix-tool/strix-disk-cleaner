@@ -12,7 +12,7 @@
 > ⚠️ **This tool destroys data permanently and cannot be undone.** Read the safety
 > section before use. Always double-check the target device.
 
-Part of the open-source **[Strix Advanced Tools](https://github.com/strix-tools)** suite.
+Part of the open-source **[Strix Advanced Tools](https://github.com/strix-tool)** suite.
 
 ## Editions
 
